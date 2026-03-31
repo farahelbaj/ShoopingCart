@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.shoppingcart.MainController"
+      spacing="12"
+      alignment="TOP_LEFT">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label fx:id="titleLabel" text="%app.title" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <Label fx:id="languageLabel" text="%language.label"/>
+        <ComboBox fx:id="languageComboBox" prefWidth="180"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label fx:id="itemNameLabel" text="%item.name"/>
+        <TextField fx:id="itemNameField" promptText="%item.name.prompt"/>
+
+        <Label fx:id="priceLabel" text="%item.price"/>
+        <TextField fx:id="priceField" promptText="%item.price.prompt"/>
+
+        <Label fx:id="quantityLabel" text="%item.quantity"/>
+        <TextField fx:id="quantityField" promptText="%item.quantity.prompt"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button fx:id="addItemButton" text="%button.addItem" onAction="#handleAddItem"/>
+        <Button fx:id="calculateButton" text="%button.calculate" onAction="#handleCalculate"/>
+        <Button fx:id="clearButton" text="%button.clear" onAction="#handleClear"/>
+    </HBox>
+
+    <TableView fx:id="cartTable" prefHeight="260">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="%table.name" prefWidth="180"/>
+            <TableColumn fx:id="priceColumn" text="%table.price" prefWidth="120"/>
+            <TableColumn fx:id="quantityColumn" text="%table.quantity" prefWidth="120"/>
+            <TableColumn fx:id="totalColumn" text="%table.total" prefWidth="180"/>
+        </columns>
+    </TableView>
+
+    <Label fx:id="overallTotalLabel" text="%overall.total"/>
+    <Label fx:id="resultLabel" text="0.00" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+</VBox>
