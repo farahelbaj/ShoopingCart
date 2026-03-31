@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "yourdockerhubusername/shopping-cart"
+        IMAGE_NAME = "farahelbaj/shopping-cart"
         IMAGE_TAG = "latest"
     }
 
     tools {
-        jdk 'jdk17'
+        jdk 'jdk21'
         maven 'maven3'
     }
 
