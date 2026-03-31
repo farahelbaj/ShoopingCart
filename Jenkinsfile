@@ -7,46 +7,42 @@ pipeline {
     }
 
     tools {
-        jdk 'JDK21'
-        maven 'maven3'
-    }
-
-    stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
+            jdk 'JDK21'
+            maven 'maven3'
         }
 
-        stage('Build') {
-            steps {
-                bat 'mvn clean compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'mvn test'
-            }
-        }
-
-        stage('Build Docker') {
-            steps {
-                script {
-                    dockerImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+        stages {
+            stage('Checkout') {
+                steps {
+                    checkout scm
                 }
             }
-        }
 
-        stage('Push Docker') {
-            steps {
-                script {
-                    docker.withRegistry('', 'dockerhub-credentials') {
-                        dockerImage.push("${IMAGE_TAG}")
+            stage('Build') {
+                steps {
+                    bat 'mvn clean compile'
+                }
+            }
+
+            stage('Test') {
+                steps {
+                    bat 'mvn test'
+                }
+            }
+
+            stage('Build Docker') {
+                steps {
+                    bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
+                }
+            }
+
+            stage('Push Docker') {
+                steps {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                        bat 'docker push %IMAGE_NAME%:%IMAGE_TAG%'
                     }
                 }
             }
         }
     }
-}
