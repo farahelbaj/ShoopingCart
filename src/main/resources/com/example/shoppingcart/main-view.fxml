@@ -20,39 +20,40 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label fx:id="titleLabel" text="%app.title" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label fx:id="titleLabel" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
     <HBox spacing="10">
-        <Label fx:id="languageLabel" text="%language.label"/>
+        <Label fx:id="languageLabel"/>
         <ComboBox fx:id="languageComboBox" prefWidth="180"/>
     </HBox>
 
     <HBox spacing="10">
-        <Label fx:id="itemNameLabel" text="%item.name"/>
-        <TextField fx:id="itemNameField" promptText="%item.name.prompt"/>
+        <Label fx:id="itemNameLabel"/>
+        <TextField fx:id="itemNameField"/>
 
-        <Label fx:id="priceLabel" text="%item.price"/>
-        <TextField fx:id="priceField" promptText="%item.price.prompt"/>
+        <Label fx:id="priceLabel"/>
+        <TextField fx:id="priceField"/>
 
-        <Label fx:id="quantityLabel" text="%item.quantity"/>
-        <TextField fx:id="quantityField" promptText="%item.quantity.prompt"/>
+        <Label fx:id="quantityLabel"/>
+        <TextField fx:id="quantityField"/>
     </HBox>
 
     <HBox spacing="10">
-        <Button fx:id="addItemButton" text="%button.addItem" onAction="#handleAddItem"/>
-        <Button fx:id="calculateButton" text="%button.calculate" onAction="#handleCalculate"/>
-        <Button fx:id="clearButton" text="%button.clear" onAction="#handleClear"/>
+        <Button fx:id="addItemButton" onAction="#handleAddItem"/>
+        <Button fx:id="calculateButton" onAction="#handleCalculate"/>
+        <Button fx:id="clearButton" onAction="#handleClear"/>
+        <Button fx:id="saveButton" onAction="#handleSave"/>
     </HBox>
 
     <TableView fx:id="cartTable" prefHeight="260">
         <columns>
-            <TableColumn fx:id="nameColumn" text="%table.name" prefWidth="180"/>
-            <TableColumn fx:id="priceColumn" text="%table.price" prefWidth="120"/>
-            <TableColumn fx:id="quantityColumn" text="%table.quantity" prefWidth="120"/>
-            <TableColumn fx:id="totalColumn" text="%table.total" prefWidth="180"/>
+            <TableColumn fx:id="nameColumn" prefWidth="180"/>
+            <TableColumn fx:id="priceColumn" prefWidth="120"/>
+            <TableColumn fx:id="quantityColumn" prefWidth="120"/>
+            <TableColumn fx:id="totalColumn" prefWidth="180"/>
         </columns>
     </TableView>
 
-    <Label fx:id="overallTotalLabel" text="%overall.total"/>
+    <Label fx:id="overallTotalLabel"/>
     <Label fx:id="resultLabel" text="0.00" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
 </VBox>
