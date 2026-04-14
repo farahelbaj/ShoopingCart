@@ -1,6 +1,6 @@
 package com.example.shoppingcart.service;
 
-
+import com.example.shoppingcart.util.ConnectionProvider;
 import com.example.shoppingcart.util.DatabaseConnection;
 
 import java.sql.Connection;
@@ -12,12 +12,22 @@ import java.util.Map;
 
 public class LocalizationService {
 
+    private final ConnectionProvider connectionProvider;
+
+    public LocalizationService() {
+        this.connectionProvider = new DatabaseConnection();
+    }
+
+    public LocalizationService(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
+    }
+
     public Map<String, String> getLocalizedStrings(String language) {
         Map<String, String> strings = new HashMap<>();
 
         String sql = "SELECT `key`, value FROM localization_strings WHERE language = ?";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, language);
@@ -32,7 +42,7 @@ public class LocalizationService {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error loading localized strings: " + e.getMessage());
         }
 
         return strings;

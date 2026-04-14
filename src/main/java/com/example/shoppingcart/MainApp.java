@@ -11,6 +11,12 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainApp extends Application {
+    static NodeOrientation getOrientationForLocale(Locale locale) {
+        if ("ar".equals(locale.getLanguage())) {
+            return NodeOrientation.RIGHT_TO_LEFT;
+        }
+        return NodeOrientation.LEFT_TO_RIGHT;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {

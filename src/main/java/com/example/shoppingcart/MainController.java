@@ -51,13 +51,23 @@ public class MainController {
     @FXML private TableColumn<CartItem, Number> totalColumn;
 
     private final ObservableList<CartItem> items = FXCollections.observableArrayList();
-    private final ShoppingCartCalculator calculator = new ShoppingCartCalculator();
-    private final LocalizationService localizationService = new LocalizationService();
-    private final CartService cartService = new CartService();
-
+    private final ShoppingCartCalculator calculator;
+    private final LocalizationService localizationService;
+    private final CartService cartService;
     private final Map<String, String> languageMap = new LinkedHashMap<>();
     private Map<String, String> localizedTexts = new HashMap<>();
     private String currentLanguage = "en";
+    public MainController() {
+        this(new ShoppingCartCalculator(), new LocalizationService(), new CartService());
+    }
+
+    public MainController(ShoppingCartCalculator calculator,
+                          LocalizationService localizationService,
+                          CartService cartService) {
+        this.calculator = calculator;
+        this.localizationService = localizationService;
+        this.cartService = cartService;
+    }
 
     @FXML
     public void initialize() {
@@ -147,7 +157,7 @@ public class MainController {
     }
 
     @FXML
-    private void handleAddItem() {
+     void handleAddItem() {
         try {
             String name = itemNameField.getText().trim();
             if (name.isEmpty()) {

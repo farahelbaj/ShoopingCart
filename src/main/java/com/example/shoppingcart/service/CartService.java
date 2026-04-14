@@ -1,6 +1,7 @@
 package com.example.shoppingcart.service;
 
 import com.example.shoppingcart.model.CartItem;
+import com.example.shoppingcart.util.ConnectionProvider;
 import com.example.shoppingcart.util.DatabaseConnection;
 
 import java.sql.Connection;
@@ -11,6 +12,16 @@ import java.util.List;
 
 public class CartService {
 
+    private final ConnectionProvider connectionProvider;
+
+    public CartService() {
+        this.connectionProvider = new DatabaseConnection();
+    }
+
+    public CartService(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
+    }
+
     public void saveCartRecord(int totalItems, double totalCost, String language, List<CartItem> items) {
         String insertCartSql =
                 "INSERT INTO cart_records (total_items, total_cost, language) VALUES (?, ?, ?)";
@@ -18,7 +29,7 @@ public class CartService {
         String insertItemSql =
                 "INSERT INTO cart_items (cart_record_id, item_number, price, quantity, subtotal) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = DatabaseConnection.getConnection()) {
+        try (Connection connection = connectionProvider.getConnection()) {
             connection.setAutoCommit(false);
 
             int cartRecordId;
@@ -58,7 +69,7 @@ public class CartService {
             connection.commit();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error saving cart record: " + e.getMessage());
         }
     }
 }
